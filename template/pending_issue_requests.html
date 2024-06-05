@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="left-navigator">
+    <h3>Available Reports</h3>
+    <ul>
+        <li><a href="{% url 'master_list_books' %}">Master List of Books</a></li>
+        <li><a href="{% url 'master_list_movies' %}">Master List of Movies</a></li>
+        <li><a href="{% url 'master_list_memberships' %}">Master List of Memberships</a></li>
+        <li><a href="{% url 'active_issues' %}">Active Issues</a></li>
+        <li><a href="{% url 'overdue_returns' %}">Overdue Returns</a></li>
+        <li><a href="{% url 'pending_issue_requests' %}">Pending Issue Requests</a></li>
+    </ul>
+</div>
+<div class="container">
+    <h1>Issue Requests</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Membership Id</th>
+                <th>Name of Book/Movie</th>
+                <th>Requested Date</th>
+                <th>Request Fulfilled Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in issue_requests %}
+            <tr>
+                <td>{{ request.membership_id }}</td>
+                <td>{{ request.book_or_movie }}</td>
+                <td>{{ request.requested_date }}</td>
+                <td>{{ request.request_fulfilled_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

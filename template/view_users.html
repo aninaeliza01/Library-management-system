@@ -1,0 +1,171 @@
+{% extends "admin_home.html" %}
+{% block content %}
+<div class="sidebar">
+  <h2>Maintenance</h2>
+  <ul>
+      <li>
+          <div class="dropdown">
+              <span class="dropbtn">Membership</span>
+              <div class="dropdown-content">
+                  <a href="{% url 'add_membership' %}">Add</a>
+                  <a href="{% url 'update_membership' %}">Update</a>
+              </div>
+          </div>
+      </li>
+      
+      <li>
+          <div class="dropdown">
+              <span class="dropbtn">Books/Movies</span>
+              <div class="dropdown-content">
+                  <a href="{% url 'add_book_movie' %}">Add</a>
+                  <a href="{% url 'update_book_movie' %}">Update</a>
+              </div>
+          </div>
+      </li>
+      
+      <li>
+          <div class="dropdown">
+              <span class="dropbtn">User Management</span>
+              <div class="dropdown-content">
+                  <a href="{% url 'register' %}">Add</a>
+                  <a href="{% url 'view_users' %}">Existing User</a>
+              </div>
+          </div>
+      </li>
+  </ul>
+</div>
+
+<style>
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+      background-color: #3e8e41;
+    }
+
+    .sidebar {
+      height: 100%;
+      width: 200px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #f2f2f2;
+      padding-top: 20px;
+    }
+
+    .sidebar h2 {
+      padding: 10px;
+      text-align: center;
+      color: #333;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      padding: 10px;
+    }
+
+    .sidebar ul li a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+    }
+
+    .sidebar ul li a:hover {
+      background-color: #ddd;
+    }
+
+    .content {
+      margin-left: 220px;
+      padding: 20px;
+    }
+
+    .table-container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+</style>
+
+<div class="content">
+    <div class="table-container">
+        <h2>List of Users</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>User Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.last_name }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.get_user_type_display }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

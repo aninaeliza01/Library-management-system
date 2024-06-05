@@ -1,0 +1,82 @@
+{% extends "admin_home.html" %}
+
+{% block content %}
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+    }
+    h1 {
+        margin-bottom: 20px;
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    li {
+        margin-bottom: 10px;
+    }
+    a {
+        text-decoration: none;
+        color: #000;
+        font-weight: bold;
+    }
+    .content-wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+    .left-content {
+        flex: 1;
+        margin-right: 20px;
+    }
+    .right-content {
+        flex: 1;
+    }
+</style>
+
+<div class="container">
+    <h1>Transactions Page</h1>
+    
+    <div class="content-wrapper">
+        <div class="left-content">
+            <ul>
+                <li><a href="{% url 'check_book' %}">Is book available?</a></li>
+                <li><a href="#">Issue book?</a></li>
+                <li><a href="#">Return book?</a></li>
+                <li><a href="#">Pay Fine?</a></li>
+            </ul>
+        </div>
+        <div class="container">
+            <h3>Pay Fine</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="book_name">Book Name:</label>
+        <input type="text" id="book_name" name="book_name" required><br><br>
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" required><br><br>
+        <label for="serial_no">Serial No:</label>
+        <input type="text" id="serial_no" name="serial_no" required><br><br>
+        <label for="issue_date">Issue Date:</label>
+        <input type="date" id="issue_date" name="issue_date" required><br><br>
+        <label for="return_date">Return Date:</label>
+        <input type="date" id="return_date" name="return_date" required><br><br>
+        <label for="actual_return_date">Actual Return Date:</label>
+        <input type="date" id="actual_return_date" name="actual_return_date" required><br><br>
+        <label for="fine_calculated">Fine Calculated:</label>
+        <input type="text" id="fine_calculated" name="fine_calculated" value="0" readonly><br><br>
+        <input type="checkbox" id="fine_paid" name="fine_paid">
+        <label for="fine_paid">Fine Paid</label><br><br>
+        <label for="remarks">Remarks:</label><br>
+        <textarea id="remarks" name="remarks"></textarea><br><br>
+        <button type="submit">Confirm</button>
+    </form>
+</div>
+{% endblock %}

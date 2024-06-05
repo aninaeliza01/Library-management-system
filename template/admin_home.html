@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="content">
+        <a href="{% url 'maintenance' %}" class="menu-link">Maintenance</a>
+        <a href="{% url 'reports' %}" class="menu-link">Reports</a>
+        <a href="{% url 'transactions' %}" class="menu-link">Transactions</a>
+    </div>
+    <table class="data-table">
+        <tr>
+            <th>Code No From</th>
+            <th>Code No To</th>
+            <th>Category</th>
+        </tr>
+        <tr>
+            <td>SC(B/M)000001</td>
+            <td>SC(B/M)000004</td>
+            <td>Science</td>
+        </tr>
+        <tr>
+            <td>EC(B/M)000001</td>
+            <td>EC(B/M)000004</td>
+            <td>Economics</td>
+        </tr>
+        <tr>
+            <td>FC(B/M)000001</td>
+            <td>FC(B/M)000004</td>
+            <td>Fiction</td>
+        </tr>
+        <tr>
+            <td>CH(B/M)000001</td>
+            <td>CH(B/M)000004</td>
+            <td>Children</td>
+        </tr>
+        <tr>
+            <td>PD(B/M)000001</td>
+            <td>PD(B/M)000004</td>
+            <td>Personal Development</td>
+        </tr>
+    </table>
+    <a href="{% url 'logout' %}" class="logout-link">Log Out</a>
+<style>
+    /* Style for menu links */
+.menu-link {
+    display: inline-block;
+    margin-right: 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Style for data table */
+.data-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.data-table th, .data-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.data-table th {
+    background-color: #f2f2f2;
+}
+
+/* Style for logout link */
+.logout-link {
+    display: block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #333;
+}
+
+.logout-link:hover {
+    color: #ff0000;
+}
+
+</style>
+{% endblock content %}

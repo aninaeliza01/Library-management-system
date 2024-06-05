@@ -1,0 +1,195 @@
+{% extends "admin_home.html" %}
+{% block content %}
+<div class="sidebar">
+  <h2>Maintenance</h2>
+  <ul>
+      <li>
+          <div class="dropdown">
+              <span class="dropbtn">Membership</span>
+              <div class="dropdown-content">
+                  <a href="{% url 'add_membership' %}">Add</a>
+                  <a href="{% url 'update_membership' %}">Update</a>
+              </div>
+          </div>
+      </li>
+      
+      <li>
+          <div class="dropdown">
+              <span class="dropbtn">Books/Movies</span>
+              <div class="dropdown-content">
+                  <a href="{% url 'add_book_movie' %}">Add</a>
+                  <a href="{% url 'update_book_movie' %}">Update</a>
+              </div>
+          </div>
+      </li>
+      
+      <li>
+          <div class="dropdown">
+              <span class="dropbtn">User Management</span>
+              <div class="dropdown-content">
+                  <a href="{% url 'register' %}">Add</a>
+                  <a href="{% url 'view_users' %}">Existing User</a>
+              </div>
+          </div>
+      </li>
+  </ul>
+</div>
+<div class="content">
+    <h2>Update Membership</h2>
+    <form method="post">
+        {% csrf_token %}
+        
+        <label for="membership_number">Membership Number:</label>
+        <input type="text" id="membership_number" name="membership_number" maxlength="100" required><br>
+        
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date" required><br>
+        
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date" required><br>
+        
+        <label>Membership Extension:</label><br>
+        <input type="radio" id="six_months" name="membership_extn" value="six_months" required>
+        <label for="six_months">Six Months</label><br>
+        
+        <input type="radio" id="one_year" name="membership_extn" value="one_year" required>
+        <label for="one_year">One Year</label><br>
+        
+        <input type="radio" id="two_years" name="membership_extn" value="two_years" required>
+        <label for="two_years">Two Years</label><br>
+        
+        <label for="membership_remove">Membership Remove:</label>
+        <input type="checkbox" id="membership_remove" name="membership_remove"><br><br>
+        
+        <button type="submit">Update Membership</button>
+    </form>
+</div>
+<style>
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+    }
+
+    .sidebar {
+        height: 100%;
+        width: 200px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #f2f2f2;
+        padding-top: 20px;
+    }
+
+    .sidebar h2 {
+        padding: 10px;
+        text-align: center;
+        color: #333;
+    }
+
+    .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .sidebar ul li {
+        padding: 10px;
+    }
+
+    .sidebar ul li a {
+        text-decoration: none;
+        color: #333;
+        display: block;
+    }
+
+    .sidebar ul li a:hover {
+        background-color: #ddd;
+    }
+
+    .content {
+        margin-left: 220px; /* Adjusted the margin to accommodate sidebar width */
+        padding: 20px;
+    }
+
+    /* Adjustments for the form elements */
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="radio"],
+    input[type="checkbox"],
+    button {
+        margin-bottom: 10px;
+    }
+</style>
+<style>
+    /* Style for form labels */
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    /* Style for text input fields */
+    input[type="text"],
+    input[type="date"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    /* Style for radio button and checkbox labels */
+    input[type="radio"] + label,
+    input[type="checkbox"] + label {
+        margin-right: 10px;
+    }
+
+    /* Style for buttons */
+    button[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+
+{% endblock %}

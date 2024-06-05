@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="left-navigator">
+    <h3>Available Reports</h3>
+    <ul>
+        <li><a href="{% url 'master_list_books' %}">Master List of Books</a></li>
+        <li><a href="{% url 'master_list_movies' %}">Master List of Movies</a></li>
+        <li><a href="{% url 'master_list_memberships' %}">Master List of Memberships</a></li>
+        <li><a href="{% url 'active_issues' %}">Active Issues</a></li>
+        <li><a href="{% url 'overdue_returns' %}">Overdue Returns</a></li>
+        <li><a href="{% url 'pending_issue_requests' %}">Pending Issue Requests</a></li>
+    </ul>
+</div>
+<div class="container">
+    <h1>Master List of Movies</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Serial No</th>
+                <th>Name of Movie</th>
+                <th>Director</th>
+                <th>Genre</th>
+                <th>Status</th>
+                <th>Cost</th>
+                <th>Procurement Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movie in movies %}
+            <tr>
+                <td>{{ movie.serial_no }}</td>
+                <td>{{ movie.name }}</td>
+                <td>{{ movie.director }}</td>
+                <td>{{ movie.genre }}</td>
+                <td>{{ movie.status }}</td>
+                <td>{{ movie.cost }}</td>
+                <td>{{ movie.procurement_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

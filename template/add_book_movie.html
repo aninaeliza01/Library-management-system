@@ -1,0 +1,251 @@
+{% extends "admin_home.html" %}
+{% block content %}
+<div class="sidebar">
+  <h2>Maintenance</h2>
+  <ul>
+      <li>
+          <div class="dropdown">
+              <span class="dropbtn">Membership</span>
+              <div class="dropdown-content">
+                  <a href="{% url 'add_membership' %}">Add</a>
+                  <a href="{% url 'update_membership' %}">Update</a>
+              </div>
+          </div>
+      </li>
+      
+      <li>
+          <div class="dropdown">
+              <span class="dropbtn">Books/Movies</span>
+              <div class="dropdown-content">
+                  <a href="{% url 'add_book_movie' %}">Add</a>
+                  <a href="{% url 'update_book_movie' %}">Update</a>
+              </div>
+          </div>
+      </li>
+      
+      <li>
+          <div class="dropdown">
+              <span class="dropbtn">User Management</span>
+              <div class="dropdown-content">
+                  <a href="{% url 'register' %}">Add</a>
+                  <a href="{% url 'view_users' %}">Existing User</a>
+              </div>
+          </div>
+      </li>
+  </ul>
+</div>
+
+<div class="content">
+  <div class="form-container">
+      <form method="POST" id="bookMovieForm" action="{% url 'add_book_movie' %}">
+          {% csrf_token %}
+          <label for="type">Type:</label>
+          <input type="radio" id="book" name="type" value="book" checked onchange="toggleFields()">
+          <label for="book">Book</label>
+          <input type="radio" id="movie" name="type" value="movie" onchange="toggleFields()">
+          <label for="movie">Movie</label><br><br>
+
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required><br>
+          {% comment %} Author field for books {% endcomment %}
+          <label for="author">Author:</label>
+          <input type="text" id="author" name="author" ><br>
+          {% comment %} Director field for movies {% endcomment %}
+          <label for="director">Director:</label>
+<input type="text" id="director" name="director" ><br>
+
+<label for="category">Category:</label>
+<select id="category" name="category">
+    <option value="" selected>Select Category</option>
+    <option value="Science">Science</option>
+    <option value="Economics">Economics</option>
+    <option value="Fiction">Fiction</option>
+    <option value="Children">Children</option>
+    <option value="Personal Development">Personal Development</option>
+</select><br>
+
+<label for="genre">Genre:</label>
+<select id="genre" name="genre" >
+    <option value="" selected>Select Genre</option>
+    <option value="Action">Action</option>
+    <option value="Comedy">Comedy</option>
+    <option value="Drama">Drama</option>
+    <option value="Fantasy">Fantasy</option>
+    <option value="Horror">Horror</option>
+    <option value="Romance">Romance</option>
+    <option value="Sci-Fi">Sci-Fi</option>
+    <option value="Thriller">Thriller</option>
+    <option value="Other">Other</option>
+</select><br>
+
+          <label for="status">Status:</label>
+          <select id="status" name="status" required>
+              <option value="" selected disabled>Select Status</option>
+              <option value="Available">Available</option>
+              <option value="Borrowed">Borrowed</option>
+          </select><br>
+          <label for="cost">Cost:</label>
+          <input type="number" id="cost" name="cost" required><br>
+          <label for="procurement_date">Date of Procurement:</label>
+          <input type="date" id="procurement_date" name="procurement_date" required><br>
+          <label for="quantity">Quantity/Copies:</label>
+          <input type="number" id="quantity" name="quantity" value="1" required><br>
+          <button >Add Book/Movie</button>
+      </form>
+  </div>
+</div>
+<script>
+  function toggleFields() {
+      var bookFields = document.querySelectorAll('#author, #category');
+      var movieFields = document.querySelectorAll('#director, #genre');
+
+      var type = document.querySelector('input[name="type"]:checked').value;
+
+      if (type === 'book') {
+          bookFields.forEach(function(field) {
+              field.style.display = 'block';
+          });
+          movieFields.forEach(function(field) {
+              field.style.display = 'none';
+          });
+      } else {
+          bookFields.forEach(function(field) {
+              field.style.display = 'none';
+          });
+          movieFields.forEach(function(field) {
+              field.style.display = 'block';
+          });
+      }
+  }
+
+  
+  window.onload = toggleFields; 
+</script>
+
+
+
+
+<style>
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    input[type="radio"] {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px; /* Adjust as needed */
+}
+
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+      background-color: #3e8e41;
+    }
+
+    .sidebar {
+      height: 100%;
+      width: 200px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #f2f2f2;
+      padding-top: 20px;
+    }
+
+    .sidebar h2 {
+      padding: 10px;
+      text-align: center;
+      color: #333;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      padding: 10px;
+    }
+
+    .sidebar ul li a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+    }
+
+    .sidebar ul li a:hover {
+      background-color: #ddd;
+    }
+
+    .content {
+      margin-left: 220px;
+      padding: 20px;
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #fff;
+    }
+
+    .form-container label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="email"],
+    .form-container input[type="date"],
+    .form-container input[type="password"],
+    .form-container input[type="number"],
+    .form-container button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    
+
+    .form-container button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .form-container button:hover {
+      background-color: #45a049;
+    }
+</style>
+{% endblock content %}

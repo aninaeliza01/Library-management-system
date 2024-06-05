@@ -1,0 +1,177 @@
+{% extends "admin_home.html" %}
+{% block content %}
+<div class="sidebar">
+  <h2>Maintenance</h2>
+  <ul>
+      <li>
+          <div class="dropdown">
+              <span class="dropbtn">Membership</span>
+              <div class="dropdown-content">
+                  <a href="{% url 'add_membership' %}">Add</a>
+                  <a href="{% url 'update_membership' %}">Update</a>
+              </div>
+          </div>
+      </li>
+      
+      <li>
+          <div class="dropdown">
+              <span class="dropbtn">Books/Movies</span>
+              <div class="dropdown-content">
+                  <a href="{% url 'add_book_movie' %}">Add</a>
+                  <a href="{% url 'update_book_movie' %}">Update</a>
+              </div>
+          </div>
+      </li>
+      
+      <li>
+          <div class="dropdown">
+              <span class="dropbtn">User Management</span>
+              <div class="dropdown-content">
+                  <a href="{% url 'register' %}">Add</a>
+                  <a href="{% url 'view_users' %}">Existing User</a>
+              </div>
+          </div>
+      </li>
+  </ul>
+</div>
+
+<style>
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+      background-color: #3e8e41;
+    }
+
+    .sidebar {
+      height: 100%;
+      width: 200px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #f2f2f2;
+      padding-top: 20px;
+    }
+
+    .sidebar h2 {
+      padding: 10px;
+      text-align: center;
+      color: #333;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      padding: 10px;
+    }
+
+    .sidebar ul li a {
+      text-decoration: none;
+      color: #333;
+      display: block;
+    }
+
+    .sidebar ul li a:hover {
+      background-color: #ddd;
+    }
+
+    .content {
+      margin-left: 220px;
+      padding: 20px;
+    }
+
+    .form-container {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #fff;
+    }
+
+    .form-container label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="email"],
+    .form-container input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .form-container button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .form-container button:hover {
+      background-color: #45a049;
+    }
+</style>
+
+<div class="content">
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <div class="form-container">
+        <form method="post">
+            {% csrf_token %}
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" required><br>
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" required><br>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+            <label for="password1">Password:</label>
+            <input type="password" id="password1" name="password1" required><br>
+            <label for="password2">Confirm Password:</label>
+            <input type="password" id="password2" name="password2" required><br>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

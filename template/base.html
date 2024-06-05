@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Home Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .nav-links {
+            width: 100%;
+            background-color: #f1f1f1;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .nav-link-left {
+            position: fixed;
+            top: 10px;
+            left: 15px;
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+        }
+        .nav-link-right {
+            position: fixed;
+            top: 10px;
+            right: 15px;
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+        }
+        .dropdown {
+            position: fixed;
+            top: 10px;
+            left: 15px;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            min-width: 160px;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .content {
+            padding-top: 60px; /* Add some top padding to prevent content from being hidden behind the fixed nav */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Home Page -->
+    <div class="nav-links">
+        <div class="dropdown">
+            <a href="#" class="nav-link-left">Chart</a>
+            <div class="dropdown-content">
+                {% if user.is_authenticated %}
+                    {% if user.is_superuser %}
+                        <a href="{% url 'admin_home' %}">Admin Home</a>
+                    {% else %}
+                        <a href="{% url 'user_home' %}">User Home</a>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'login' %}">Login Page</a>
+                {% endif %}
+            </div>
+        </div>
+        <a href="#" class="nav-link-right" onclick="goBack()">Back</a>
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+
+    </div>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

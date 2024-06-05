@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="left-navigator">
+    <h3>Available Reports</h3>
+    <ul>
+        <li><a href="{% url 'master_list_books' %}">Master List of Books</a></li>
+        <li><a href="{% url 'master_list_movies' %}">Master List of Movies</a></li>
+        <li><a href="{% url 'master_list_memberships' %}">Master List of Memberships</a></li>
+        <li><a href="{% url 'active_issues' %}">Active Issues</a></li>
+        <li><a href="{% url 'overdue_returns' %}">Overdue Returns</a></li>
+        <li><a href="{% url 'pending_issue_requests' %}">Pending Issue Requests</a></li>
+    </ul>
+</div>
+<div class="container">
+    <h1>Overdue Returns</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Serial No</th>
+                <th>Book</th>
+                <th>Name of Book</th>
+                <th>Membership Id</th>
+                <th>Date of Issue</th>
+                <th>Date of Return</th>
+                <th>Fine Calculations</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for overdue_return in overdue_returns %}
+            <tr>
+                <td>{{ overdue_return.serial_no }}</td>
+                <td>{{ overdue_return.book }}</td>
+                <td>{{ overdue_return.book_name }}</td>
+                <td>{{ overdue_return.membership_id }}</td>
+                <td>{{ overdue_return.date_of_issue }}</td>
+                <td>{{ overdue_return.date_of_return }}</td>
+                <td>{{ overdue_return.fine_calculation }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

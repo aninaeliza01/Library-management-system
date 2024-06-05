@@ -1,0 +1,77 @@
+{% extends "admin_home.html" %}
+{% block content %}
+<style>
+    /* Style for left navigator */
+    .left-navigator {
+        float: left;
+        width: 200px;
+        padding: 20px;
+        background-color: #f2f2f2;
+    }
+    
+    .left-navigator h3 {
+        margin-bottom: 10px;
+    }
+    
+    .left-navigator ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .left-navigator li {
+        margin-bottom: 10px;
+    }
+    
+    .left-navigator a {
+        text-decoration: none;
+        color: #333;
+    }
+    
+    .left-navigator a:hover {
+        color: #ff0000;
+    }
+</style>
+
+<div class="left-navigator">
+    <h3>Available Reports</h3>
+    <ul>
+        <li><a href="{% url 'master_list_books' %}">Master List of Books</a></li>
+        <li><a href="{% url 'master_list_movies' %}">Master List of Movies</a></li>
+        <li><a href="{% url 'master_list_memberships' %}">Master List of Memberships</a></li>
+        <li><a href="{% url 'active_issues' %}">Active Issues</a></li>
+        <li><a href="{% url 'overdue_returns' %}">Overdue Returns</a></li>
+        <li><a href="{% url 'pending_issue_requests' %}">Pending Issue Requests</a></li>
+    </ul>
+</div>
+<div class="container">
+    <h1>Master List of Books</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Serial No</th>
+                <th>Name of Book</th>
+                <th>Author Name</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Cost</th>
+                <th>Procurement Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.serial_no }}</td>
+                <td>{{ book.name }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.category }}</td>
+                <td>{{ book.status }}</td>
+                <td>{{ book.cost }}</td>
+                <td>{{ book.procurement_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
