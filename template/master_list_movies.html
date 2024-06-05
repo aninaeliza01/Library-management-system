@@ -1,5 +1,72 @@
 {% extends "base.html" %}
 {% block content %}
+<style>
+    /* Style for left navigator */
+    .left-navigator {
+        float: left;
+        width: 200px;
+        padding: 20px;
+        background-color: #f2f2f2;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        height: 100vh; /* Full height */
+        position: fixed; /* Fixed position */
+        overflow: auto; /* Enable scroll if needed */
+    }
+    
+    .left-navigator h3 {
+        margin-bottom: 20px;
+    }
+    
+    .left-navigator ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .left-navigator li {
+        margin-bottom: 15px;
+    }
+    
+    .left-navigator a {
+        text-decoration: none;
+        color: #333;
+        display: block;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    
+    .left-navigator a:hover {
+        background-color: #ddd;
+        color: #000;
+    }
+
+    /* Style for main content */
+    .content-container {
+        margin-left: 220px; 
+        padding: 20px;
+    }
+    
+    .content-container h1 {
+        margin-bottom: 20px;
+    }
+    
+    .content-container table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    
+    .content-container th, .content-container td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+    
+    .content-container th {
+        background-color: #f4f4f4;
+    }
+</style>
+
 <div class="left-navigator">
     <h3>Available Reports</h3>
     <ul>
@@ -11,7 +78,8 @@
         <li><a href="{% url 'pending_issue_requests' %}">Pending Issue Requests</a></li>
     </ul>
 </div>
-<div class="container">
+
+<div class="content-container">
     <h1>Master List of Movies</h1>
     <table class="table">
         <thead>
@@ -28,7 +96,7 @@
         <tbody>
             {% for movie in movies %}
             <tr>
-                <td>{{ movie.serial_no }}</td>
+                <td>{{ movie.id }}</td>
                 <td>{{ movie.name }}</td>
                 <td>{{ movie.director }}</td>
                 <td>{{ movie.genre }}</td>

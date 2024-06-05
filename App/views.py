@@ -64,6 +64,13 @@ def user_home(request):
     return render(request, 'user_home.html')
 
 def check_book_availability(request):
+    if request.method == 'GET':
+        book_name = request.GET.get('book_name')
+        author = request.GET.get('author')
+        if book_name and author:
+            
+            books = Book.objects.filter(name__icontains=book_name, author__icontains=author)
+            return render(request, 'search_results.html', {'books': books})
     return render(request, 'check_book_availability.html')
 
 
@@ -73,39 +80,59 @@ def issue_book(request):
         author = request.POST.get('author')
         issue_date = request.POST.get('issue_date')
         return_date = request.POST.get('return_date')
-        remarks = request.POST.get('remarks')
         
-        messages.success(request, 'Book issued successfully!')
         
-        return redirect('success_page') 
-    return render(request, 'issue_book.html')
+        book = Book.objects.get(pk=book_name) 
+        book.quantity -= 1
+        book.save()  
+        issue = Issue.objects.create(
+            book=book,
+            
+            date_of_issue=issue_date,
+            date_of_return=return_date,
+            status='Issued'
+        )
+    books = Book.objects.all()
+
+    return render(request, 'issue_book.html', {'books': books})
 
 
 def return_book(request):
     if request.method == 'POST':
-        book_name = request.POST.get('book_name')
-        author = request.POST.get('author')
-        serial_no = request.POST.get('serial_no')
+        book_id = request.POST.get('book_name')
         issue_date = request.POST.get('issue_date')
         return_date = request.POST.get('return_date')
-        remarks = request.POST.get('remarks')
-        return HttpResponse("Book returned successfully.") 
+        book = Book.objects.get(pk=book_id)
+        return_entry = Return.objects.create(
+            book=book,
+            date_of_issue=issue_date,
+            date_of_return=return_date,
+            fine_calculation=0.0,  
+            status='Returned',  
+            
+        )
+        book.quantity += 1
+        book.save()
     else:
-        return render(request, 'return_book.html')
-
+        books = Book.objects.all()
+        return render(request, 'return_book.html', {'books': books})
 def pay_fine(request):
     if request.method == 'POST':
         pass
     return render(request, 'pay_fine.html')
 
 def master_list_books(request):
-    return render(request, 'master_list_books.html')
+    books = Book.objects.all()
+    return render(request, 'master_list_books.html', {'books': books})
 
 def master_list_movies(request):
-    return render(request, 'master_list_movies.html')
+    movies = Movie.objects.all()
+    return render(request, 'master_list_movies.html', {'movies': movies})
 
 def master_list_memberships(request):
-    return render(request, 'master_list_memberships.html')
+    active_memberships = Membership.objects.all
+    return render(request, 'master_list_memberships.html', {'active_memberships': active_memberships})
+
 
 def active_issues(request):
    
@@ -311,3 +338,4 @@ def update_book_movie(request):
             return HttpResponse('Invalid type')
     else:
         return render(request, 'update_book_movie.html', {'book_movie_list': book_movie_list})
+    

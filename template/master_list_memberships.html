@@ -1,5 +1,72 @@
 {% extends "base.html" %}
 {% block content %}
+<style>
+    /* Style for left navigator */
+    .left-navigator {
+        float: left;
+        width: 200px;
+        padding: 20px;
+        background-color: #f2f2f2;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        height: 100vh; /* Full height */
+        position: fixed; /* Fixed position */
+        overflow: auto; /* Enable scroll if needed */
+    }
+    
+    .left-navigator h3 {
+        margin-bottom: 20px;
+    }
+    
+    .left-navigator ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .left-navigator li {
+        margin-bottom: 15px;
+    }
+    
+    .left-navigator a {
+        text-decoration: none;
+        color: #333;
+        display: block;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    
+    .left-navigator a:hover {
+        background-color: #ddd;
+        color: #000;
+    }
+
+    /* Style for main content */
+    .container {
+        margin-left: 240px; /* Same as the width of the navigator */
+        padding: 20px;
+    }
+    
+    .container h1 {
+        margin-bottom: 20px;
+    }
+    
+    .container table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    
+    .container th, .container td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+    
+    .container th {
+        background-color: #f4f4f4;
+    }
+</style>
+
 <div class="left-navigator">
     <h3>Available Reports</h3>
     <ul>
@@ -11,6 +78,7 @@
         <li><a href="{% url 'pending_issue_requests' %}">Pending Issue Requests</a></li>
     </ul>
 </div>
+
 <div class="container">
     <h1>List of Active Memberships</h1>
     <table class="table">
@@ -23,21 +91,21 @@
                 <th>Aadhar Card No</th>
                 <th>Start Date of Membership</th>
                 <th>End Date of Membership</th>
-                <th>Status</th>
+                
                 <th>Amount Pending (Fine)</th>
             </tr>
         </thead>
         <tbody>
             {% for membership in active_memberships %}
             <tr>
-                <td>{{ membership.membership_id }}</td>
-                <td>{{ membership.member_name }}</td>
+                <td>{{ membership.id }}</td>
+                <td>{{ membership.first_name }}{{ membership.last_name }}</td>
                 <td>{{ membership.contact_number }}</td>
                 <td>{{ membership.contact_address }}</td>
                 <td>{{ membership.aadhar_card_no }}</td>
                 <td>{{ membership.start_date }}</td>
                 <td>{{ membership.end_date }}</td>
-                <td>{{ membership.status }}</td>
+                
                 <td>{{ membership.amount_pending }}</td>
             </tr>
             {% endfor %}

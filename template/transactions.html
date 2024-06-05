@@ -8,22 +8,56 @@
     }
     .container {
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 20px;
     }
-    h1 {
+    .left-navigator {
+        width: 200px;
+        padding: 20px;
+        background-color: #f2f2f2;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        height: 100vh; /* Full height */
+        position: fixed; /* Fixed position */
+        overflow: auto; /* Enable scroll if needed */
+    }
+    .left-navigator h3 {
         margin-bottom: 20px;
     }
-    ul {
+    .left-navigator ul {
         list-style-type: none;
         padding: 0;
         margin: 0;
     }
-    li {
+    .left-navigator li {
+        margin-bottom: 15px;
+    }
+    .left-navigator a {
+        text-decoration: none;
+        color: #333;
+        display: block;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .left-navigator a:hover {
+        background-color: #ddd;
+        color: #000;
+    }
+
+    .main-content {
+        margin-left: 240px; /* Same as the width of the navigator */
+        padding: 20px;
+        flex-grow: 1;
+    }
+    .main-content h1 {
+        margin-bottom: 20px;
+    }
+    .main-content ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    .main-content li {
         margin-bottom: 10px;
     }
-    a {
+    .main-content a {
         text-decoration: none;
         color: #000;
         font-weight: bold;
@@ -31,17 +65,15 @@
 </style>
 
 <div class="container">
-    <h1>Transactions Page</h1>
+    <div class="left-navigator">
+        <h1>Transactions Page</h1>
+        <ul>
+            <li><a href="{% url 'check_book' %}">Is book available?</a></li>
+            <li><a href="{% url 'issue_book' %}">Issue book?</a></li>
+            <li><a href="{% url 'return_book' %}">Return book?</a></li>
+            <li><a href="{% url 'pay_fine' %}">Pay Fine?</a></li>
+        </ul>
+    </div>
     
-    <ul>
-        <li><a href="{% url 'check_book' %}">Is book available?</a></li>
-        <li><a href="{% url 'issue_book' %}">Issue book?</a></li>
-
-        <li><a href="{% url 'return_book' %}">Return book?</a></li>
-
-        <li><a href="{% url 'pay_fine' %}">Pay Fine?</a></li>
-
-    </ul>
-</div>
 </div>
 {% endblock %}

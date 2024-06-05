@@ -35,7 +35,7 @@ class Membership(models.Model):
 
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    contact_name = models.CharField(max_length=100)
+    contact_number = models.CharField(max_length=100)
     contact_address = models.CharField(max_length=255)
     aadhar_card_no = models.CharField(max_length=12)
     start_date = models.DateField()
@@ -53,7 +53,7 @@ class Book(models.Model):
     status = models.CharField(max_length=50)  
     cost = models.DecimalField(max_digits=10, decimal_places=2)  
     procurement_date = models.DateField()
-    quantity = models.PositiveIntegerField(default=1)
+    quantity = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -65,7 +65,31 @@ class Movie(models.Model):
     status = models.CharField(max_length=50)  
     cost = models.DecimalField(max_digits=10, decimal_places=2) 
     procurement_date = models.DateField()
-    quantity = models.PositiveIntegerField(default=1)
+    quantity = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name
+
+
+class Issue(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    membership = models.ForeignKey(Membership, on_delete=models.CASCADE,null=True)
+    date_of_issue = models.DateField()
+    date_of_return = models.DateField()
+    status = models.CharField(max_length=50)
+
+class Return(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    membership = models.ForeignKey(Membership, on_delete=models.CASCADE,null=True)
+    date_of_issue = models.DateField()
+    date_of_return = models.DateField()
+    fine_calculation = models.DecimalField(max_digits=10, decimal_places=2,null=True)
+    status = models.CharField(max_length=50)
+
+class Request(models.Model):
+    membership = models.ForeignKey(Membership, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, null=True, blank=True, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, null=True, blank=True, on_delete=models.CASCADE)
+    requested_date = models.DateField()
+    request_fulfilled_date = models.DateField(null=True, blank=True)
+    status = models.CharField(max_length=50)
